@@ -25,7 +25,7 @@ curser = connection.cursor()
 query1 = """
 SELECT student_id, fullname, final_score, total FROM
     students NATURAL JOIN problems NATURAL JOIN 
-        (SELECT student_id, SUM(final_score) / 9 as total FROM
+        (SELECT student_id, SUM(final_score) as total FROM
             problems GROUP BY (student_id)) ORDER BY student_id;
 """
 
@@ -34,7 +34,7 @@ query2 = """
 SELECT student_id, fullname, total FROM
     (SELECT student_id, fullname, final_score, total FROM
         students NATURAL JOIN problems NATURAL JOIN 
-            (SELECT student_id, SUM(final_score) / 9 as total FROM
+            (SELECT student_id, SUM(final_score) as total FROM
                 problems GROUP BY (student_id)))
 GROUP BY (student_id, fullname, total) ORDER BY student_id;
 """
