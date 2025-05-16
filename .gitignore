@@ -2,3 +2,4 @@ venv/
 sheets/
 .env
 test.py
+results.xlsx
