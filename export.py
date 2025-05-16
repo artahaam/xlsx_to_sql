@@ -19,7 +19,7 @@ connection = psycopg2.connect(database = getenv("DATABASE"),
                         port = getenv("PORT"),
                         options='-c client_encoding=UTF8')
 
-curser = connection.cursor()
+cursor = connection.cursor()
 
 # Use this query if you want to have the details of each assignment(problem)
 query1 = """
@@ -39,9 +39,10 @@ SELECT student_id, fullname, total FROM
 GROUP BY (student_id, fullname, total) ORDER BY student_id;
 """
 
-curser.execute(query1);
-data = curser.fetchall()
+cursor.execute(query1);
+data = cursor.fetchall()
 for d in data:
     ws.append(d)
     
 wb.save("results.xlsx")
+
