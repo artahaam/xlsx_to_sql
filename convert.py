@@ -5,32 +5,37 @@ from os import getenv
 load_dotenv()
 
 
-df = pd.read_excel('sheets/assignment_1_results.xlsx', na_values=['nan', '?', ''])
-
 connection = psycopg2.connect(database = getenv("DATABASE"), 
                         user = getenv("USER"), 
                         host= getenv("HOST"),
                         password = getenv("PASSWORD"),
-                        port = getenv("PORT"))
-curser =  connection.cursor()
+                        port = getenv("PORT"),
+                        options='-c client_encoding=UTF8')
 
-# target indices: 0, 1, 2, 4, 6
+curser = connection.cursor()
+
+
 # reading the first assignment file to initialize the students table
 # and add first problem scores
+df = pd.read_excel('sheets/students.xlsx', na_values=['nan', '?', ''])
+
 rows = df.values.tolist()
+print(rows)
 for row in rows:
+    print(row)
     username = row[0]
     student_id = row[1]
     fullname = row[2]
-    final_score = row[4]
-    judge_score = row[6]
-    
+
     curser.execute(f"INSERT INTO students VALUES('{student_id}', '{username}', '{fullname}')")
-    curser.execute(f"INSERT INTO problems(judge_score, final_score ,student_id) VALUES({judge_score}, {final_score}, '{student_id}')")
+
+connection.commit()
+
     
-# inseting data of remained assignments (2 to 9) to the problems table
-for assignment_number in range(2, 10):
-    df = pd.read_excel(f'sheets/assignment_1_results.xlsx', na_values=['nan', '?', ''])
+# inseting data of assignments (1 to 9) to the problems table
+for assignment_number in range(1, 10):
+
+    df = pd.read_excel(f'sheets/assignment_{assignment_number}_results.xlsx', na_values=['nan', '?', ''])
   
     rows = df.values.tolist()
   
@@ -38,12 +43,15 @@ for assignment_number in range(2, 10):
         username = row[0]
         student_id = row[1]
         fullname = row[2]
-        final_score = row[4]
-        judge_score = row[6]
+        final_score = str(row[4]) if str(row[4]) != "nan" else 0
+        judge_score = str(row[6]) if str(row[6]) != "nan" else 0
+        print(assignment_number)
+        curser.execute(f"INSERT INTO problems(judge_score, final_score, student_id) VALUES({judge_score}, {final_score}, '{student_id}')")
 
-    curser.execute(f"INSERT INTO problems(judge_score, final_score ,student_id) VALUES({judge_score}, {final_score}, '{student_id}')")
-
-# commit and closing the connection
 connection.commit()
+
+        
+# commit and closing the connection
+
 curser.close()
 connection.close()
