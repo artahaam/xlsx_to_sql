@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from os import getenv
 load_dotenv()
 
-
+# Creating a connection to postgresql
 connection = psycopg2.connect(database = getenv("DATABASE"), 
                         user = getenv("USER"), 
                         host= getenv("HOST"),
@@ -41,6 +41,7 @@ for assignment_number in range(1, 10):
         username = row[0]
         student_id = row[1]
         fullname = row[2]
+        
         # Taking care of nan (null) values 
         final_score = str(row[4]) if str(row[4]) != "nan" else 0
         judge_score = str(row[6]) if str(row[6]) != "nan" else 0
@@ -50,6 +51,5 @@ connection.commit()
 
         
 # commit and closing the connection
-
 cursor.close()
 connection.close()
