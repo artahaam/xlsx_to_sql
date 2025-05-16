@@ -14,9 +14,7 @@ connection = psycopg2.connect(database = getenv("DATABASE"),
 
 curser = connection.cursor()
 
-
-# reading the first assignment file to initialize the students table
-# and add first problem scores
+# extracting student data and inserting to the students table in the database
 df = pd.read_excel('sheets/students.xlsx', na_values=['nan', '?', ''])
 
 rows = df.values.tolist()
@@ -32,7 +30,7 @@ for row in rows:
 connection.commit()
 
     
-# inseting data of assignments (1 to 9) to the problems table
+# extracting problem assignments data and inserting to the problems table in the database
 for assignment_number in range(1, 10):
 
     df = pd.read_excel(f'sheets/assignment_{assignment_number}_results.xlsx', na_values=['nan', '?', ''])
