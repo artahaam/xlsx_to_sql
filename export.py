@@ -39,10 +39,36 @@ SELECT student_id, fullname, total FROM
 GROUP BY (student_id, fullname, total) ORDER BY student_id;
 """
 
+# Create resluts table
+crate_table = """
+CREATE TABLE results(
+    id SERIAL PRIMARY KEY,
+    student_id VARCHAR(9) REFERENCES students(student_id),
+    fullname VARCHAR(60),
+    score INTEGER,
+    total INTEGER
+    )
+"""
+cursor.execute(crate_table)
+connection.commit()
 cursor.execute(query1);
+
 data = cursor.fetchall()
 for d in data:
+    student_id, fullname, score, total = d
+    print(student_id, fullname, score, total)
+    
+    # Add data as rows to the xlsx file
     ws.append(d)
     
+    # Insert into resluts table
+    cursor.execute(f"""
+                INSERT INTO results(student_id, fullname, score, total) VALUES('{student_id}', '{fullname}', {score}, {total})
+                """)
+    
 wb.save("results.xlsx")
+connection.commit()
 
+
+cursor.close()
+connection.close()
