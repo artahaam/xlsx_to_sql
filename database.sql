@@ -5,3 +5,9 @@ CREATE TABLE userS(
     full_name VARCHAR(60)
 )
 
+CREATE TABLE problems(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    judge_score INTEGER,
+    final_score INTEGER
+)
