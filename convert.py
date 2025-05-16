@@ -12,7 +12,7 @@ connection = psycopg2.connect(database = getenv("DATABASE"),
                         port = getenv("PORT"),
                         options='-c client_encoding=UTF8')
 
-curser = connection.cursor()
+cursor = connection.cursor()
 
 # extracting student data and inserting to the students table in the database
 df = pd.read_excel('sheets/students.xlsx', na_values=['nan', '?', ''])
@@ -25,7 +25,7 @@ for row in rows:
     student_id = row[1]
     fullname = row[2]
 
-    curser.execute(f"INSERT INTO students VALUES('{student_id}', '{username}', '{fullname}')")
+    cursor.execute(f"INSERT INTO students VALUES('{student_id}', '{username}', '{fullname}')")
 
 connection.commit()
 
@@ -44,12 +44,12 @@ for assignment_number in range(1, 10):
         final_score = str(row[4]) if str(row[4]) != "nan" else 0
         judge_score = str(row[6]) if str(row[6]) != "nan" else 0
         print(assignment_number)
-        curser.execute(f"INSERT INTO problems(judge_score, final_score, student_id) VALUES({judge_score}, {final_score}, '{student_id}')")
+        cursor.execute(f"INSERT INTO problems(judge_score, final_score, student_id) VALUES({judge_score}, {final_score}, '{student_id}')")
 
 connection.commit()
 
         
 # commit and closing the connection
 
-curser.close()
+cursor.close()
 connection.close()
