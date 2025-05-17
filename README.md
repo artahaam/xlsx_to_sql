@@ -32,7 +32,7 @@ This Python script automates processing Excel files with student data, storing t
 
 1. **Clone the Repository**:
 
-   ```
+   ```sh
    git clone https://github.com/artahaam/xlsx_to_sql.git
    cd xlsx_to_sql
 
@@ -42,7 +42,7 @@ This Python script automates processing Excel files with student data, storing t
 
 2. **Install Dependencies**:
 
-   ```
+   ```sh
    pip install -r requirements.txt
    ```
 
@@ -60,7 +60,7 @@ This Python script automates processing Excel files with student data, storing t
 
    - Place `fake_data0.xlsx`, `fakedata1.xlsx`, `fakedata2.xlsx`, `fakedata3.xlsx` in the project directory or generate them using:
 
-     ```
+     ```sh
      python fake_data.py
      ```
 
@@ -70,7 +70,7 @@ This Python script automates processing Excel files with student data, storing t
 
 1. **Import Data**:
 
-   ```
+   ```sh
    python convert.py
    ```
 
@@ -80,7 +80,7 @@ This Python script automates processing Excel files with student data, storing t
 
 2. **Export Results**:
 
-   ```
+   ```sh
    python export.py
    ```
 
