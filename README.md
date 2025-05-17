@@ -89,7 +89,7 @@ python export.py
 
 ## File Structure
 
-```
+```sh
 xlsx_to_sql/
 
 ├── convert.py        # Imports Excel data to PostgreSQL
