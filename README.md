@@ -1,8 +1,8 @@
-﻿# Student Data Processing
+﻿# xlsx_to_sql
 
   
 
-This Python script automates processing Excel files with student data, storing them in PostgreSQL, and generating a `results.xlsx` file with `student_id`, `full_name`, `score`, and `total`.
+These Python scripts automate processing Excel files with student data, storing them in PostgreSQL, and generating a `results.xlsx` file with `student_id`, `full_name`, `score`, and `total`.
 
   
 
@@ -35,7 +35,6 @@ This Python script automates processing Excel files with student data, storing t
    ```
    git clone https://github.com/artahaam/xlsx_to_sql.git
    cd xlsx_to_sql
-
    ```
 
   
@@ -91,7 +90,6 @@ This Python script automates processing Excel files with student data, storing t
 ## File Structure
 
 ```
-
 xlsx_to_sql/
 
 ├── convert.py        # Imports Excel data to PostgreSQL
@@ -115,7 +113,6 @@ xlsx_to_sql/
 ├── requirements.txt  # Dependencies
 
 └── README.md         # This file
-
 ```
 
   
